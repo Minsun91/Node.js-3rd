@@ -21,10 +21,18 @@ class UsersController {
         return;
     }
     //회원가입 부합테스트
-    const nicknameRegExp = /^[a-zA-z0-9]{3,}$/;   // 닉네임이 3자리이상 영문대소문자,숫자로 입력하게.
-    if (!nicknameRegExp.test(id) || pw.search(id) > -1) {
+    const idRegExp = /^[a-zA-z0-9]{3,}$/;   // id 3자리이상 영문대소문자,숫자로 입력하게.
+    if (!idRegExp.test(id) || pw.search(id) > -1) {
         res.status(400).send ({
-            errorMessage : "닉네임: 3자리 이상 영문 대소문자와 숫자로 입력하세요 / 패스워드:  닉네임과 같은 단어 포함 금지",
+            errorMessage : "id: 3자리 이상 영문 대소문자와 숫자로 입력하세요 / 패스워드:  닉네임과 같은 단어 포함 금지",
+        }); 
+        return;
+    };
+
+    const nicknameRegExp = /[^\w\sㄱ-힣]|[\_]/g;   // 닉네임은 특수문자 안됨.
+    if (!nicknameRegExp.test(nickname)) {
+        res.status(400).send ({
+            errorMessage : "닉네임: 특수문자 사용금지",
         }); 
         return;
     };
@@ -39,10 +47,15 @@ class UsersController {
 
   signinUser = async (req, res, next) => {
     const { id, pw } = req.body;
-    
-    const signinUser = await this.userService.loginUser(id,pw);
+    const { cookie } = req.headers;
 
-    res.status(201).json({ data: signinUser });
+    if (cookie) {
+      res.status(400).send({ errorMessage: "이미 로그인 되어 있습니다. " });
+      return;
+      }
+    await this.userService.loginUser(res,id,pw);
+
+    res.status(201).json({ Message:"로그인이 완료됐습니다." });
   }
 
   logoutUser = async (req, res) => {
