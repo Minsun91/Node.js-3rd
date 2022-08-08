@@ -3,9 +3,8 @@ const { User, Post, Comment, Like } = require("../models");
 
 module.exports = (req, res, next) => {
     const { cookie } = req.headers;
-    console.log("쿠키는", cookie);
+
     const [tokenType, tokenValue] = (cookie || "").split("=");
-    console.log("미들웨어 진입", tokenValue);
 
     if (tokenType !== "token") {
         res.status(400).send({
