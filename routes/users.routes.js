@@ -12,7 +12,7 @@ router.post("/signup", usersController.createUser);
 router.post("/signin" ,usersController.signinUser);
 
 // 로그아웃
-//router.get("/logout", usersController);
+router.get("/logout", usersController.logoutUser);
 
 // 유저 수정
 //router.patch("/user/edit", usersController);

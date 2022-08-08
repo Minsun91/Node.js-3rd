@@ -18,7 +18,7 @@ class UserService {
     return {
        Message: "회원가입을 축하드립니다." 
     };
-  }
+  };
 
   loginUser = async (id, pw) => {
     // const { id, pw } = req.body;
@@ -32,5 +32,14 @@ class UserService {
     };
     return;
  };
+ 
+ logoutUser = async (res) =>{
+    await res.clearCookie('token')
+    return;
+ };
+ 
+
+
+
 };
 module.exports = UserService;

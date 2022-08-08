@@ -7,7 +7,6 @@ class UsersController {
   //회원가입
   createUser = async (req, res, next) => {
     const { id , pw, confirmpw ,nickname} = req.body;
-    
     const { cookie } = req.headers;
     
     if (cookie) {
@@ -46,7 +45,12 @@ class UsersController {
     res.status(201).json({ data: signinUser });
   }
 
+  logoutUser = async (req, res) => {
+    await this.userService.logoutUser(res);
+    res.status(201).json({Message:"로그아웃을 했습니다."});
+  };
 
+  
 
 
 
