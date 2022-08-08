@@ -1,47 +1,84 @@
-const usersService = require("../services/users.service");
+const UsersService = require("../services/users.service");
 
-class UsersService {
-    userservice = new UserService();
+class UsersController {
+    userservice = new UsersService();
 
     //signup
     createUser = async (req, res, next) => {
-        const { id, pw, confirmPw, nickname } = req.body;
+        const { id, pw, confirmpw, nickname } = req.body;
 
-        // 서비스 계층에 구현된 createPost 로직을 실행합니다.
-        const createUserData = await this.UserService.createUser(
-            nickname,
+        const { cookie } = req.headers;
+        console.log(cookie);
+
+        if (cookie) {
+            res.status(400).send({
+                errorMessage: "이미 로그인 되어 있습니다. ",
+            });
+            return;
+        }
+        //비밀번호와 비밀번호 확인란 일치하지않을경우 메세지출력
+        if (pw !== confirmpw) {
+            res.status(400).send({
+                errorMessage: "패스워드가 패스워드 확인란과 동일하지 않습니다.",
+            });
+            return;
+        }
+        //회원가입 부합테스트
+        const nicknameRegExp = /^[a-zA-z0-9]{3,}$/; // 닉네임이 3자리이상 영문대소문자,숫자로 입력하게.
+        if (!nicknameRegExp.test(nickname) || pw.search(nickname) > -1) {
+            res.status(400).send({
+                errorMessage:
+                    "닉네임: 3자리 이상 영문 대소문자와 숫자로 입력하세요 / 패스워드: 닉네임과 같은 단어 포함 금지",
+            });
+            return;
+        }
+
+        const createUserData = await this.userservice.createUser(
+            id,
             pw,
-            confirmPw,
-            id
+            confirmpw,
+            nickname
         );
+        // console.log("컨트롤러", nickname);
 
         res.status(201).json({
-            data: createUserData,
             message: "회원가입을 축하드립니다.",
         });
-        next();
     };
 
     //signin
-    signinUser = async (req, res, next) => {
+    loginUser = async (req, res, next) => {
         const { id, pw } = req.body;
-        const signinUserData = await this.UserService.signinUser(id, pw);
+        console.log(id);
+
+        const loginUserData = await this.userservice.loginUser(id, pw);
+
+        const token = jwt.sign(
+            {
+                id: loginUserData.id,
+                nickname: loginUserData.nickname,
+            },
+            "MS-secret-key"
+        );
+        res.cookie("token", token, {
+            maxAge: 1000 * 60 * 60, // expires: 300000, 300000밀리초 → 300초
+        });
+        res.send({ token });
 
         res.status(201).json({
-            data: signinUserData,
+            data: loginUserData,
         });
     };
 
     //logout, clearcookie
     logoutUser = async (req, res, next) => {
-        const users = await this.UserService.logoutUser();
+        const users = await this.userservice.logoutUser();
         res.status(200).json({ data: users });
     };
-
     //edit
     updateUser = async (req, res, next) => {
         const { nickname, pw } = req.body;
-        const updateUserData = await this.UserService.updateUser({
+        const updateUserData = await this.userservice.updateUser({
             where: { nickname, pw },
         });
 
@@ -50,9 +87,22 @@ class UsersService {
 
     //delete
     deleteUser = async (req, res, next) => {
-        const {} = req.body; //”회원탈퇴하겠습니다” 라고 정확히 적어야 회원탈퇴
-        const deleteUserData = await this.UserService.deleteUser({});
-        res.status(201).json({ data: updateUserData });
+        const { cookie } = req.headers;
+        const { deletemessage } = req.body;
+        console.log("탈퇴", deletemessage);
+        console.log("'회원 탈퇴하겠습니다'를 정확히 입력해주세요.");
+
+        if (deletemessage === "회원 탈퇴하겠습니다") {
+            // res.clearCookie("pw");
+            res.status(400).send({
+                Message: "메세지를 정확히 입력해주세요. ",
+            });
+        } else {
+            const deleteUserData = await this.userservice.deleteUser({
+                where: {},
+            });
+            res.status(201).send({ Message: "회원 탈퇴되었습니다. " });
+        }
     };
 }
 

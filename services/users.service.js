@@ -1,49 +1,52 @@
 const UserRepository = require("../repositories/users.repository");
+const jwt = require("jsonwebtoken");
+const authMiddleware = require("../middlewares/auth-middleware");
 
-class UserService {
+class UsersService {
     userRepository = new UserRepository();
 
-    findAllUser = async () => {
-        const allUser = await this.userRepository.findAllUser();
-
-        return allUser.map((user) => {
-            return {
-                userId: user.userId,
-                nickname: user.nickname,
-                pw: user.pw,
-                confirmpw: user.confirmpw,
-                // createdAt: user.createdAt,
-                // updatedAt: user.updatedAt,
-            };
-        });
-    };
-
-    createUser = async (id, pw, confirmPw, nickname) => {
+    //회원가입
+    createUser = async (id, pw, confirmpw, nickname) => {
         const createUserData = await this.userRepository.createUser(
             id,
             pw,
-            confirmPw,
+            confirmpw,
             nickname
         );
-
-        return {
-            id: createUserData.id,
-            nickname: createUserData.nickname,
-            pw: createUserData.pw,
-            confirmPw: createUserData.confirmPw,
-            createdAt: createUserData.createdAt,
-        };
+        // console.log("서비스", nickname);
     };
 
-    updateUser = async (content) => {
-        const updatePostData = await this.postRepository.updatePost(content);
+    //로그인
+    loginUser = async (id, pw) => {
+        // const { id, pw } = req.body;
 
-        return {
-            content: updatePostData.content,
-            createdAt: updatePostData.createdAt,
-            updatedAt: updatePostData.updatedAt,
+        const loginUserData = await this.UserRepository.loginUser({
+            where: { id },
+        });
+        console.log("로그인 id 확인", id);
+
+        if (!id || pw !== loginUserData.pw) {
+            res.status(400).send({
+                errorMessage: "닉네임 또는 패스워드가 틀렸습니다.",
+            });
+            return;
+        }
+
+        updateUser = async (content) => {
+            const updatePostData = await this.postRepository.updatePost(
+                content
+            );
+
+            return {
+                content: updatePostData.content,
+                createdAt: updatePostData.createdAt,
+                updatedAt: updatePostData.updatedAt,
+            };
+        };
+        deleteUser = async () => {
+            const deleteUserData = await this.UserRepository.deleteUser();
         };
     };
 }
 
-module.exports = UserService;
+module.exports = UsersService;

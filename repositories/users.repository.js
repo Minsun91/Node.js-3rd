@@ -1,15 +1,26 @@
-const { Users } = require("../models");
+const UsersController = require("../controllers/users.controller");
+const { User } = require("../models");
 
 class UserRepository {
-    createUser = async (nickname, pw, id) => {
-        // ORM인 Sequelize에서 Posts 모델의 create 메소드를 사용해 데이터를 호출합니다.
-        const createPostData = await Users.create({
-            nickname,
-            pw,
+    createUser = async (id, pw, confirmpw, nickname) => {
+        const createUserData = await User.create({
             id,
+            pw,
+            confirmpw,
+            nickname,
         });
 
         return createUserData;
+    };
+    loginUser = async (id, pw) => {
+        const user = await User.findOne({ where: { id, pw } });
+
+        if (!user) {
+            res.status(400).send({
+                errorMessage: "닉네임 또는 패스워드가 잘못됐습니다.",
+            });
+            return;
+        }
     };
 }
 
