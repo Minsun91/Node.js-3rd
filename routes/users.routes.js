@@ -11,7 +11,7 @@ router.post("/signup", usersController.createUser);
 router.post("/signin", usersController.loginUser);
 
 // // 로그아웃
-// router.get("/logout", usersController.logoutUser);
+router.get("/logout", usersController.logoutUser);
 
 // // 유저 수정
 router.patch("/user/edit", usersController.updateUser);

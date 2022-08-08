@@ -18,9 +18,7 @@ class UsersService {
 
     //로그인
     loginUser = async (id, pw) => {
-        // const { id, pw } = req.body;
-
-        const loginUserData = await this.UserRepository.loginUser({
+        const loginUserData = await this.userRepository.findOne({
             where: { id },
         });
         console.log("로그인 id 확인", id);
@@ -33,19 +31,16 @@ class UsersService {
         }
 
         updateUser = async (content) => {
-            const updatePostData = await this.postRepository.updatePost(
+            const updateUserData = await this.userRepository.updateUser(
                 content
             );
 
-            return {
-                content: updatePostData.content,
-                createdAt: updatePostData.createdAt,
-                updatedAt: updatePostData.updatedAt,
-            };
+            return {};
         };
-        deleteUser = async () => {
-            const deleteUserData = await this.UserRepository.deleteUser();
+        deleteUser = async (userId) => {
+            const deleteUserData = await this.userRepository.deleteUser(userId);
         };
+        return;
     };
 }
 

@@ -52,21 +52,19 @@ class UsersController {
         console.log(id);
 
         const loginUserData = await this.userservice.loginUser(id, pw);
-
         const token = jwt.sign(
             {
                 id: loginUserData.id,
-                nickname: loginUserData.nickname,
             },
             "MS-secret-key"
         );
         res.cookie("token", token, {
-            maxAge: 1000 * 60 * 60, // expires: 300000, 300000밀리초 → 300초
+            maxAge: 1000 * 60 * 60,
         });
         res.send({ token });
-
-        res.status(201).json({
-            data: loginUserData,
+        res.status(200).send({
+            Message: "성공적으로 로그인 되었습니다. ",
+            // data: loginUserData,
         });
     };
 
@@ -85,21 +83,22 @@ class UsersController {
         res.status(201).json({ data: updateUserData });
     };
 
-    //delete
+    //delete 인자값을 넘겨줌
     deleteUser = async (req, res, next) => {
         const { cookie } = req.headers;
         const { deletemessage } = req.body;
-        console.log("탈퇴", deletemessage);
-        console.log("'회원 탈퇴하겠습니다'를 정확히 입력해주세요.");
+        const { userId } = res.locals;
 
-        if (deletemessage === "회원 탈퇴하겠습니다") {
+        console.log("탈퇴", deletemessage);
+
+        if (deletemessage !== "회원 탈퇴하겠습니다") {
             // res.clearCookie("pw");
             res.status(400).send({
                 Message: "메세지를 정확히 입력해주세요. ",
             });
         } else {
             const deleteUserData = await this.userservice.deleteUser({
-                where: {},
+                userId,
             });
             res.status(201).send({ Message: "회원 탈퇴되었습니다. " });
         }
