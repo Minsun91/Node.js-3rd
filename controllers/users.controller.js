@@ -31,7 +31,7 @@ class UsersController {
     };
 
     // 서비스 계층에 구현된 creatUser 로직을 실행합니다.
-    const createUserData = await this.userService.createUser( id, pw ,nickname);
+     await this.userService.createUser( id, pw ,nickname);
 
     res.status(201).json({ Message: "회원가입을 축하드립니다." });
   }
@@ -40,8 +40,8 @@ class UsersController {
 
   signinUser = async (req, res, next) => {
     const { id, pw } = req.body;
-
-    const signinUser = await this.usersService.loginUser(id,pw);
+    
+    const signinUser = await this.userService.loginUser(id,pw);
 
     res.status(201).json({ data: signinUser });
   }

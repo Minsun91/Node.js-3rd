@@ -9,7 +9,7 @@ const usersController = new UsersController();
 router.post("/signup", usersController.createUser);
 
 // 로그인
-router.post("/signin",auth ,usersController.signinUser);
+router.post("/signin" ,usersController.signinUser);
 
 // 로그아웃
 //router.get("/logout", usersController);
