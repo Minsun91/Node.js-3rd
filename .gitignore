@@ -1,6 +1,6 @@
 ## 폴더무시
 node_modules/
-
+config
 
 ## 파일 무시
 package-lock.json
