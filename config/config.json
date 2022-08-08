@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "null",
+    "password": "531515",
     "database": "AzzulDB",
     "host": "hanghae99-team2.ckwo0fkfwio9.ap-northeast-2.rds.amazonaws.com",
     "dialect": "mysql"
