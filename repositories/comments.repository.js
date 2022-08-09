@@ -24,7 +24,6 @@ class CommentRepository {
 
   updateComment = async (commentId, postId, userId, content) => {
     await Comment.update({ content }, { where: { commentId } });
-
     return;
   };
 

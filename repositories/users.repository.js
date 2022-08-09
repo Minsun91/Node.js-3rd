@@ -1,5 +1,5 @@
 const UsersController = require("../controllers/users.controller");
-const { User } = require("../models");
+const { User, post, Comment, like } = require("../models");
 
 class UserRepository {
   createUser = async (id, pw, nickname) => {
@@ -18,17 +18,36 @@ class UserRepository {
     return loginUserData;
   };
 
-  updateUser = async (userId, nickname, pw) => {
-    // const userId = 4;
+  updateUser = async (userId, new_nickname, pw, nickname) => {
     const updateUserData = await User.update(
-      { nickname, pw },
-      { where: { userId } }
+      { nickname: new_nickname },
+      { where: { userId: 25 } }
     );
+
+    const updatePostData = await post.update(
+      { nickname: new_nickname },
+      { where: { userId: 25 } }
+    );
+    const updateCommentData = await Comment.update(
+      { nickname: new_nickname },
+      { where: { nickname } }
+    );
+
+    // const updateLikeData = await like.update(
+    //     { new_nickname },
+    //     { where: { userId } }
+    // );
     return updateUserData;
   };
 
-  deleteUser = async (userId) => {
+  deleteUser = async (userId, nickname) => {
     const deleteUserData = await User.destroy({ where: { userId } });
+    const deleteCommentData = await Comment.destroy({
+      where: { nickname },
+    });
+    const deletePostData = await post.destroy({ where: { userId } });
+    // const deleteLikeData = await like.destroy({ where: { userId } });
+
     return deleteUserData;
   };
 }

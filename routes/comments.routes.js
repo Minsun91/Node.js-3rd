@@ -17,5 +17,4 @@ router.delete(
   authMiddleware,
   commentsController.deleteComment
 );
-
 module.exports = router;

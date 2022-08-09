@@ -22,7 +22,6 @@ class CommentService {
 
   createComment = async (postId, userId, content) => {
     const verifyPostId = await this.commentVerify.verifyPostId(postId);
-
     const verifyContent = await this.commentVerify.verifyContent(content);
 
     if (!verifyPostId) {
@@ -101,7 +100,6 @@ class CommentService {
     if (!verifyConfirmPw) {
       return [{ status: 400 }, { msg: "비밀번호를 확인해주세요" }];
     }
-
     await this.commentRepository.deleteComment(commentId);
 
     return [{ status: 200 }, { msg: "댓글이 삭제 되었습니다." }];

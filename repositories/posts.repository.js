@@ -41,10 +41,8 @@ class PostRepository {
         where: { postId },
       }
     );
-
     return updatePostData;
   };
-
   deletePost = async (postId) => {
     await post.destroy({
       where: { postId },
