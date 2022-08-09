@@ -18,7 +18,7 @@ class PostRepository {
     return detailPost;
   };
 
-  createPost = async (nickname, password, title, content) => {
+  createPost = async (nickname, password, title, content,userId) => {
     
     // ORM인 Sequelize에서 Posts 모델의 create 메소드를 사용해 데이터를 요청합니다.
     const createPostData = await post.create({
@@ -27,7 +27,7 @@ class PostRepository {
       title,
       content,
       like: 0,
-      userId:15
+      userId
     });
 
     return createPostData;
@@ -48,7 +48,19 @@ class PostRepository {
     return updatePostData;
   };
 
+  //포스트 아이디로 포스트를 뒤져 비밀번호가 같으면 true
+  //아니면 false
+  checkPw = async(postId,pw) => {
+    checkPostPwData = post.findOne({
+      where:{postId}
+    })
+    if(pw === checkPostPwData.pw){
+      return true
+    }else return false
+  }
+
   deletePost = async (postId) => {
+    
     await post.destroy({
       where: { postId },
     });

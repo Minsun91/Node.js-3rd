@@ -1,7 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
-module.exports = (sequelize, DataTypes) => {
-
+module.exports = (sequelize, DataTypes) => { 
     class User extends Model {
         /**
          * Helper method for defining associations.
@@ -9,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(db) {
-            // db.User.hasMany(db.post, { foreignKey: "userId" });
+            db.User.hasMany(db.post, { foreignKey: "userId" });
             // define association here
         }
     }
@@ -35,4 +34,6 @@ module.exports = (sequelize, DataTypes) => {
         }
     );
     return User;
+
       }
+

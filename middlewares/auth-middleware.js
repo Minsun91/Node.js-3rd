@@ -1,11 +1,9 @@
 const jwt = require("jsonwebtoken");
-const { User, Post, Comment, Like } = require("../models");
 
 module.exports = (req, res, next) => {
-    const { cookie } = req.headers;
 
-    const [tokenType, tokenValue] = (cookie || "").split("=");
-
+  const { cookie } = req.headers;
+  const [tokenType, tokenValue] = (cookie || "").split("=");
     if (tokenType !== "token") {
         res.status(400).send({
             errorMessage: "token이 아닙니다",
@@ -26,4 +24,5 @@ module.exports = (req, res, next) => {
         });
         return;
     }
+1
 };
