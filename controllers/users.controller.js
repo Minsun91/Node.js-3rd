@@ -6,7 +6,6 @@ class UsersController {
   //회원가입
   createUser = async (req, res, next) => {
     const { id, pw, confirmpw, nickname } = req.body;
-
     const { cookie } = req.headers;
 
     if (cookie) {
@@ -31,7 +30,8 @@ class UsersController {
     }
 
     // 서비스 계층에 구현된 creatUser 로직을 실행합니다.
-    const createUserData = await this.userService.createUser(id, pw, nickname);
+
+    await this.userService.createUser(id, pw, nickname);
 
     res.status(201).json({ Message: "회원가입을 축하드립니다." });
   };
@@ -39,9 +39,14 @@ class UsersController {
   signinUser = async (req, res, next) => {
     const { id, pw } = req.body;
 
-    const signinUser = await this.usersService.loginUser(id, pw);
+    const signinUser = await this.userService.loginUser(id, pw);
 
     res.status(201).json({ data: signinUser });
+  };
+
+  logoutUser = async (req, res) => {
+    await this.userService.logoutUser(res);
+    res.status(201).json({ Message: "로그아웃을 했습니다." });
   };
 }
 
