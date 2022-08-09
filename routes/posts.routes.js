@@ -15,6 +15,7 @@ router.get("/:postId", postsController.getOnePost);
 router.post("/", authMiddleware, postsController.createPost);
 
 // 게시물 수정
+
 router.patch("/:postId", authMiddleware, postsController.updatePost);
 
 // 게시물 삭제

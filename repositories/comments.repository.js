@@ -2,36 +2,36 @@ const { Comment } = require("../models");
 const { User } = require("../models");
 
 class CommentRepository {
-  findAllComment = async (postId) => {
-    const comments = await Comment.findAll({ where: { postId } });
+    findAllComment = async (postId) => {
+        const comments = await Comment.findAll({ where: { postId } });
 
-    return comments;
-  };
+        return comments;
+    };
 
-  createComment = async (postId, userId, content) => {
-    const userInfo = await User.findOne({
-      where: { userId },
-    });
+    createComment = async (postId, userId, content) => {
+        const userInfo = await User.findOne({
+            where: { userId },
+        });
 
-    await Comment.create({
-      nickname: userInfo.nickname,
-      postId,
-      content,
-    });
+        await Comment.create({
+            nickname: userInfo.nickname,
+            postId,
+            content,
+        });
 
-    return;
-  };
+        return;
+    };
 
-  updateComment = async (commentId, postId, userId, content) => {
-    await Comment.update({ content }, { where: { commentId } });
-    return;
-  };
+    updateComment = async (commentId, postId, userId, content) => {
+        await Comment.update({ content }, { where: { commentId } });
+        return;
+    };
 
-  deleteComment = async (commentId) => {
-    await Comment.destroy({ where: { commentId } });
+    deleteComment = async (commentId) => {
+        await Comment.destroy({ where: { commentId } });
 
-    return;
-  };
+        return;
+    };
 }
 
 module.exports = CommentRepository;

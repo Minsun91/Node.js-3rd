@@ -58,7 +58,6 @@ class UsersController {
 
     //edit
     updateUser = async (req, res, next) => {
-        // const { cookie } = req.headers;
         const { userId, nickname } = res.locals;
         const { new_nickname, pw } = req.body;
 
@@ -68,7 +67,7 @@ class UsersController {
             pw,
             nickname
         );
-
+        res.clearCookie("token");
         res.status(200).json({ data: updateUser });
     };
 
