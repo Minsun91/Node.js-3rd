@@ -1,4 +1,4 @@
-const CommentRepository = require("../repositories/comments.repository");
+const CommentRepository = require("./repositories/comments.repository");
 const commentRepository = new CommentRepository();
 
 describe("comment", () => {
