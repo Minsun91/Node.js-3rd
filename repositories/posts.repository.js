@@ -1,6 +1,7 @@
 const { post } = require("../models");
 
 class PostRepository {
+
   findAllPost = async () => {
     
     // ORM인 Sequelize에서 Posts 모델의 findAll 메소드를 사용해 데이터를 요청합니다.
@@ -65,6 +66,7 @@ class PostRepository {
       where: { postId },
     });
   };
+
 }
 
 module.exports = PostRepository;

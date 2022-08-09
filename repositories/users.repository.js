@@ -1,7 +1,8 @@
 const UsersController = require("../controllers/users.controller");
-const { User } = require("../models");
+const { User, post, Comment, like } = require("../models");
 
 class UserRepository {
+
   createUser = async (id, pw, nickname) => {
     const createUserData = await User.create({ id, pw, nickname });
     return createUserData;
@@ -35,6 +36,7 @@ class UserRepository {
     console.log("repo", userId);
     return deleteUserData;
   };
+
 }
 
 module.exports = UserRepository;
