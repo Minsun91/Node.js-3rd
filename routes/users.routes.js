@@ -1,5 +1,6 @@
 const express = require("express");
-const auth = require("../middlewares/auth-middleware")
+const auth = require("../middlewares/auth-middleware");
+
 const router = express.Router();
 
 const UsersController = require("../controllers/users.controller");
@@ -9,10 +10,10 @@ const usersController = new UsersController();
 router.post("/signup", usersController.createUser);
 
 // 로그인
-router.post("/signin",auth ,usersController.signinUser);
+router.post("/signin", usersController.signinUser);
 
 // 로그아웃
-//router.get("/logout", usersController);
+router.get("/logout", usersController.logoutUser);
 
 // 유저 수정
 //router.patch("/user/edit", usersController);
