@@ -44,13 +44,14 @@ class UserService {
     };
 
     //유저 수정
-    updateUser = async (userId, nickname, pw) => {
+    updateUser = async (userId, new_nickname, pw, nickname) => {
         const updateUserData = await this.userRepository.updateUser(
             userId,
-            nickname,
-            pw
+            new_nickname,
+            pw,
+            nickname
         );
-        return { Message: "내용 수정 되었습니다." };
+        return { Message: "닉네임 수정 되었습니다." };
     };
 
     //유저삭제
