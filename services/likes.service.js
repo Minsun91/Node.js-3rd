@@ -1,9 +1,9 @@
 const LikeRepository = require("../repositories/likes.repository");
 
 class LikesService {
-  likeRepository = new LikeRepository();
+    likeRepository = new LikeRepository();
 
-  // 함수 작성
+    // 함수 작성
 }
 
 module.exports = LikesService;
