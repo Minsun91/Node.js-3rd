@@ -1,7 +1,3 @@
-const { Likes } = require("../models");
-
-class LikeRepository {
-  
-}
+class LikeRepository {}
 
 module.exports = LikeRepository;

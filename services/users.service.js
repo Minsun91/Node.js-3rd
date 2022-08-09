@@ -46,6 +46,7 @@ class UserService {
         const deleteUserData = await this.userRepository.deleteUser(userId);
     };
     return;
-}
 
+
+}
 module.exports = UserService;
