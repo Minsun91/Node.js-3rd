@@ -11,6 +11,7 @@ class PostService {
         allPost.sort((a, b) => {
             return b.createdAt - a.createdAt;
         });
+
         const Posts = allPost.map((post) => {
             return {
                 postId: post.postId,
@@ -20,6 +21,7 @@ class PostService {
                 like: post.like,
             };
         });
+
         return {
             Posts,
             status: 200,
@@ -44,13 +46,14 @@ class PostService {
     };
 
     //8월 8일 완료
-    createPost = async (nickname, password, title, content) => {
+    createPost = async (nickname, password, title, content, userId) => {
         // 저장소(Repository)에게 데이터를 요청합니다.
         await this.postRepository.createPost(
             nickname,
             password,
             title,
-            content
+            content,
+            userId
         );
 
         // 비즈니스 로직을 수행한 후 사용자에게 보여줄 데이터를 가공합니다.
@@ -61,9 +64,8 @@ class PostService {
     };
 
     updatePost = async (postId, content, password) => {
-        const updatePostData = await this.postRepository.findOnePost(postId);
 
-        if (password !== updatePostData.password) {
+        if (!this.postRepository.checkPw(postId,pw)) {
             //입력한 비밀번호가 다른 경우
             return {
                 status: 400,
@@ -78,8 +80,14 @@ class PostService {
         };
     };
 
-    deletePost = async (postId) => {
-        await this.postRepository.deletePost(postId);
+    deletePost = async (postId,pw) => {
+        if(!this.postRepository.checkPw(postId,pw)){
+          return {
+            status: 400,
+            msg: "입력한 비밀번호가 다릅니다.",
+        };
+        }
+        await this.postRepository.deletePost(postId,pw);
         return {
             status: 200,
             msg: "게시물이 삭제되었습니다.",

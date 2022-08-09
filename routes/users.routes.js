@@ -17,6 +17,7 @@ router.get("/logout", usersController.logoutUser);
 // 유저 수정
 router.patch("/edit/:userId", auth, usersController.updateUser);
 
+
 // 회원 탈퇴
 router.delete("/delete", auth, usersController.deleteUser);
 

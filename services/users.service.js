@@ -19,6 +19,7 @@ class UserService {
         };
     };
 
+
     loginUser = async (res, id, pw) => {
         // const { id, pw } = req.body;
         const signinUserData = await this.userRepository.signinUser(id, pw);
@@ -37,6 +38,7 @@ class UserService {
         });
         return signinUserData;
     };
+
 
     logoutUser = async (res) => {
         await res.clearCookie("token");

@@ -1,4 +1,5 @@
 const PostService = require("../services/posts.service");
+const requireLogin = require("../middlewares/auth-middleware");
 
 class PostsController {
   postService = new PostService();
@@ -28,14 +29,15 @@ class PostsController {
   };
   //8월 8일 완료
   createPost = async (req, res, next) => {
-    const { nickname, password, title, content } = req.body;
-
+    const { password, title, content } = req.body;
+    const {nickname, userId} = req.locals;
     // 서비스 계층에 구현된 createPost 로직을 실행합니다.
     const createPostData = await this.postService.createPost(
       nickname,
       password,
       title,
-      content
+      content,
+      userId
     );
 
     res.status(createPostData.status).json({ data: createPostData.msg });
@@ -57,7 +59,8 @@ class PostsController {
   //8월 8일 완료
   deletePost = async (req, res, next) => {
     const { postId } = req.params;
-    const deletPostData = await this.postService.deletePost(Number(postId));
+    const {pw} = req.body;
+    const deletPostData = await this.postService.deletePost(Number(postId),pw);
 
     res.status(deletPostData.status).json({ data: deletPostData });
   };
