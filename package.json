@@ -24,7 +24,12 @@
     "mysql2": "^2.3.3"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "jest": "^28.1.3",
     "sequelize-cli": "^6.4.1"
+=======
+    "cli": "^1.0.1",
+    "sequelize": "^6.21.3"
+>>>>>>> 2d5646aadbf63408bd378b8f45166f769cbb4f2f
   }
 }
