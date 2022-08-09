@@ -22,7 +22,7 @@ class UserService {
     loginUser = async (res, id, pw) => {
         // const { id, pw } = req.body;
         const signinUserData = await this.userRepository.signinUser(id, pw);
-        console.log("로그인 id 확인", id, pw);
+        console.log("로그인 확인", id, pw);
 
         const token = jwt.sign(
             {
@@ -31,7 +31,7 @@ class UserService {
             },
             "MS-secret-key"
         );
-        console.log("서비스", userId, nickname);
+
         res.cookie("token", token, {
             maxAge: 1000 * 60 * 60,
         });
@@ -54,8 +54,11 @@ class UserService {
     };
 
     //유저삭제
-    deleteUser = async (userId) => {
-        const deleteUserData = await this.userRepository.deleteUser(userId);
+    deleteUser = async (userId, nickname) => {
+        const deleteUserData = await this.userRepository.deleteUser(
+            userId,
+            nickname
+        );
     };
     return;
 }

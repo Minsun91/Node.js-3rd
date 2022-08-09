@@ -18,6 +18,6 @@ router.get("/logout", usersController.logoutUser);
 router.patch("/edit/:userId", auth, usersController.updateUser);
 
 // 회원 탈퇴
-router.delete("/delete/:userId", auth, usersController.deleteUser);
+router.delete("/delete", auth, usersController.deleteUser);
 
 module.exports = router;
