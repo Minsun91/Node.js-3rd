@@ -59,15 +59,15 @@ class UsersController {
     //edit
     updateUser = async (req, res, next) => {
         // const { cookie } = req.headers;
-        const { userId } = res.locals;
-        const { nickname, pw } = req.body;
+        const { userId, nickname } = res.locals;
+        const { new_nickname, pw } = req.body;
 
         const updateUser = await this.userService.updateUser(
             userId,
-            nickname,
-            pw
+            new_nickname,
+            pw,
+            nickname
         );
-        console.log("컨트롤러", userId, nickname, pw);
 
         res.status(200).json({ data: updateUser });
     };
