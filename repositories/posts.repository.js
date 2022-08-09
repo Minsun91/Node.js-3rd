@@ -31,7 +31,7 @@ class PostRepository {
   };
 
   updatePost = async (postId, title, content) => {
-    const updatePostData = await Posts.update(
+    const updatePostData = await post.update(
       {
         //postId로 게시물을 찾아 수정해주는 기능
         title,
@@ -46,7 +46,7 @@ class PostRepository {
   };
 
   deletePost = async (postId) => {
-    await Posts.destroy({
+    await post.destroy({
       where: { postId },
     });
   };
