@@ -59,16 +59,9 @@ class UsersController {
 
     //edit
     updateUser = async (req, res, next) => {
-        const { cookie } = req.headers;
+        // const { cookie } = req.headers;
         const { userId } = res.locals;
         const { nickname, pw } = req.body;
-
-        if (!cookie) {
-            res.status(400).send({
-                errorMessage: "로그인 후 이용하세요 ",
-            });
-            return;
-        }
 
         const updateUser = await this.userService.updateUser(
             userId,
@@ -76,21 +69,14 @@ class UsersController {
             pw
         );
         console.log("컨트롤러", userId, nickname, pw);
+
         res.status(200).json({ data: updateUser });
     };
 
-    //delete 인자값을 넘겨줌
+    //유저 삭제
     deleteUser = async (req, res, next) => {
-        const { cookie } = req.headers;
         const { userId } = res.locals;
         const { deletemessage } = req.body;
-
-        if (!cookie) {
-            res.status(400).send({
-                errorMessage: "로그인 후 이용하세요 ",
-            });
-            return;
-        }
 
         console.log("탈퇴", userId);
 
@@ -108,5 +94,4 @@ class UsersController {
         }
     };
 }
-
 module.exports = UsersController;

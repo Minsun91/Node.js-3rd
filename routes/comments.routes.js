@@ -8,14 +8,13 @@ const commentsController = new CommentsController();
 router.get("/:postId", commentsController.getComments);
 router.post("/:postId", authMiddleware, commentsController.createComment);
 router.patch(
-  "/:postId/:commentId",
-  authMiddleware,
-  commentsController.updateComment
+    "/:postId/:commentId",
+    authMiddleware,
+    commentsController.updateComment
 );
 router.delete(
-  "/:postId/:commentId",
-  authMiddleware,
-  commentsController.deleteComment
+    "/:postId/:commentId",
+    authMiddleware,
+    commentsController.deleteComment
 );
-
 module.exports = router;
