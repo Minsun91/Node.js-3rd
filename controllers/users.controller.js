@@ -21,18 +21,10 @@ class UsersController {
         return;
     }
     //회원가입 부합테스트
-    const idRegExp = /^[a-zA-z0-9]{3,}$/;   // id 3자리이상 영문대소문자,숫자로 입력하게.
-    if (!idRegExp.test(id) || pw.search(id) > -1) {
+    const nicknameRegExp = /^[a-zA-z0-9]{3,}$/;   // 닉네임이 3자리이상 영문대소문자,숫자로 입력하게.
+    if (!nicknameRegExp.test(id) || pw.search(id) > -1) {
         res.status(400).send ({
-            errorMessage : "id: 3자리 이상 영문 대소문자와 숫자로 입력하세요 / 패스워드:  닉네임과 같은 단어 포함 금지",
-        }); 
-        return;
-    };
-
-    const nicknameRegExp = /[^\w\sㄱ-힣]|[\_]/g;   // 닉네임은 특수문자 안됨.
-    if (!nicknameRegExp.test(nickname)) {
-        res.status(400).send ({
-            errorMessage : "닉네임: 특수문자 사용금지",
+            errorMessage : "닉네임: 3자리 이상 영문 대소문자와 숫자로 입력하세요 / 패스워드:  닉네임과 같은 단어 포함 금지",
         }); 
         return;
     };
@@ -74,8 +66,30 @@ class UsersController {
 
 
 
+    //delete 인자값을 넘겨줌
+    deleteUser = async (req, res, next) => {
+        // const { cookie } = req.headers;
+        // const { userId } = res.locals;
+        const { deletemessage } = req.body;
 
+        // console.log("탈퇴", userId);
 
+        if (deletemessage !== "회원 탈퇴하겠습니다.") {
+            let userId = "4";
+            res.status(400).send({
+                Message: "메세지를 정확히 입력해주세요. ",
+            });
+        } else {
+            const deleteUserData = await this.userService.deleteUser(
+                4
+                // {userId,}
+            );
+            res.status(201).send({
+                // Message: `${userId}번 회원 탈퇴되었습니다.`,
+                Message: "회원 탈퇴되었습니다.",
+            });
+        }
+    };
 }
 
 module.exports = UsersController;

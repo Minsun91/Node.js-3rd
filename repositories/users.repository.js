@@ -2,25 +2,36 @@ const UsersController = require("../controllers/users.controller");
 const { User } = require("../models");
 
 class UserRepository {
-  createUser = async (id,pw,nickname ) => {          // ORM인 Sequelize에서 Users 모델의 create 메소드를 사용해 데이터를 요청합니다.
-    const createUserData = await User.create({ id, pw, nickname });
+    createUser = async (id, pw, nickname) => {
+        const createUserData = await User.create({ id, pw, nickname });
+        return createUserData;
+    };
 
-    return createUserData;
-  }
-  signinUser = async (id, pw) => {
-    const user = await User.findOne({ where: { id, pw } });
+    loginUser = async (id, pw) => {
+        const loginUserData = await User.findAll({ where: { id, pw } });
 
-    if (!user) {
-        res.status(400).send({
-            errorMessage: "닉네임 또는 패스워드가 잘못됐습니다.",
-        });
-        return;
-    };return user;
-};
+        if (!loginUserData) {
+            res.status(400).send({
+                errorMessage: "닉네임 또는 패스워드가 잘못됐습니다.",
+            });
+            return loginUserData;
+        }
+    };
 
+    updateUser = async (userId, nickname, pw) => {
+        // const userId = 4;
+        const updateUserData = await User.update(
+            { nickname, pw },
+            { where: { userId } }
+        );
+        return updateUserData;
+    };
 
-  
-
-};
+    deleteUser = async (userId) => {
+        const deleteUserData = await User.destroy({ where: { userId } });
+        console.log("repo", userId);
+        return deleteUserData;
+    };
+}
 
 module.exports = UserRepository;

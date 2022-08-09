@@ -19,8 +19,9 @@ class UserService {
     // 비즈니스 로직을 수행한 후 사용자에게 보여줄 데이터를 가공합니다.
     return {
       Message: "회원가입을 축하드립니다.",
-    };
-  };
+
+    }}
+  
 
   loginUser = async (res ,id, pw) => {
     // const { id, pw } = req.body;
@@ -45,5 +46,25 @@ class UserService {
     await res.clearCookie("token");
     return;
   };
-}
+
+
+    //유저 수정
+    updateUser = async (userId, nickname, pw) => {
+        const updateUserData = await this.userRepository.updateUser(
+            4, //userId
+            nickname,
+            pw
+        );
+        return { Message: "내용 수정 되었습니다." };
+    };
+
+    //유저삭제
+    deleteUser = async (userId) => {
+        const deleteUserData = await this.userRepository.deleteUser(userId);
+    };
+    return;
+
+
+
+  }
 module.exports = UserService;
