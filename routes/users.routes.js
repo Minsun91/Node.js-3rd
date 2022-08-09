@@ -14,10 +14,10 @@ router.post("/signin", usersController.signinUser);
 // 로그아웃
 router.get("/logout", usersController.logoutUser);
 
-// // 유저 수정
-// router.patch("/edit/:userId", usersController.updateUser);
+// 유저 수정
+router.patch("/edit/:userId", usersController.updateUser);
 
-// // 회원 탈퇴
+// 회원 탈퇴
 router.delete("/delete/:userId", usersController.deleteUser);
 
 module.exports = router;

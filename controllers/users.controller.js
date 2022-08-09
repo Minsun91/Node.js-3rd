@@ -1,6 +1,7 @@
 const UserService = require("../services/users.service");
 
 class UsersController {
+
   userService = new UserService();
 
   //회원가입
@@ -74,6 +75,7 @@ class UsersController {
       });
     }
   };
+
 }
 
 module.exports = UsersController;

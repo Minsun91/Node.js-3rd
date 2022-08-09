@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
+
   const { cookie } = req.headers;
   const [tokenType, tokenValue] = (cookie || "").split("=");
   if (tokenType !== "token") {
@@ -21,4 +22,5 @@ module.exports = (req, res, next) => {
     });
     return;
   }
+
 };
