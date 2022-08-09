@@ -63,7 +63,7 @@ class CommentService {
       return [{ status: 400 }, { msg: "댓글을 입력해주세요" }];
     }
 
-    await this.CommentRepository.updateComment(
+    await this.commentRepository.updateComment(
       commentId,
       postId,
       userId,
@@ -95,7 +95,7 @@ class CommentService {
       return [{ status: 400 }, { msg: "비밀번호를 확인해주세요" }];
     }
 
-    await this.CommentRepository.deleteComment(commentId);
+    await this.commentRepository.deleteComment(commentId);
 
     return [{ status: 200 }, { msg: "댓글이 삭제 되었습니다." }];
   };
