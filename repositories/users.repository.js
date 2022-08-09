@@ -7,15 +7,14 @@ class UserRepository {
         return createUserData;
     };
 
-    loginUser = async (id, pw) => {
+    signinUser = async (id, pw) => {
         const loginUserData = await User.findAll({ where: { id, pw } });
 
         if (!loginUserData) {
             res.status(400).send({
                 errorMessage: "닉네임 또는 패스워드가 잘못됐습니다.",
             });
-            return loginUserData;
-        }
+        }return loginUserData;
     };
 
     updateUser = async (userId, nickname, pw) => {

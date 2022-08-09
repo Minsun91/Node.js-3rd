@@ -19,7 +19,7 @@ class UsersController {
             errorMessage: '패스워드가 패스워드 확인란과 동일하지 않습니다.',
         });
         return;
-    }
+    };
     //회원가입 부합테스트
     const nicknameRegExp = /^[a-zA-z0-9]{3,}$/;   // 닉네임이 3자리이상 영문대소문자,숫자로 입력하게.
     if (!nicknameRegExp.test(id) || pw.search(id) > -1) {

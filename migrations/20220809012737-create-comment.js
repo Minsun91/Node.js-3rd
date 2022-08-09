@@ -11,7 +11,6 @@ module.exports = {
       postId: {
         type: Sequelize.STRING,
       },
-<<<<<<<< HEAD:migrations/20220809025014-create-post.js
       content: {
         type: Sequelize.STRING
       },
@@ -20,13 +19,6 @@ module.exports = {
       },
       like: {
         type: Sequelize.INTEGER
-========
-      nickname: {
-        type: Sequelize.STRING,
-      },
-      content: {
-        type: Sequelize.STRING,
->>>>>>>> 42c1444ba64d6aa0390aeac54da6202e99418487:migrations/20220809012737-create-comment.js
       },
       userId: {
         type: Sequelize.INTEGER
