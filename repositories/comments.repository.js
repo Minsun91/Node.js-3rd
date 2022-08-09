@@ -1,6 +1,5 @@
-// const { Comment } = require("../models");
-// const { User } = require("../models");
-// const { Post } = require("../models");
+const { Comment } = require("../models");
+const { User } = require("../models");
 
 class CommentRepository {
   findAllComment = async (postId) => {

@@ -8,7 +8,7 @@ class CommentsController {
 
     const comments = await this.commentService.findAllComment(postId);
 
-    req.status(200).json({ comments });
+    res.status(200).json({ comments });
   };
 
   createComment = async (req, res) => {

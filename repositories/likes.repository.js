@@ -1,5 +1,3 @@
-class LikeRepository {
-  // 함수 작성
-}
+class LikeRepository {}
 
 module.exports = LikeRepository;

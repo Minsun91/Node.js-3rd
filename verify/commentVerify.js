@@ -1,10 +1,10 @@
-// const { Post } = require("../models");
-// const { User } = require("../models");
-// const { Comment } = require("../models");
+const { post } = require("../models");
+const { User } = require("../models");
+const { Comment } = require("../models");
 
 class CommentVerify {
   verifyPostId = async (postId) => {
-    const exsistPost = await Posts.findOne({
+    const exsistPost = await post.findOne({
       where: { postId },
     });
     if (exsistPost) {

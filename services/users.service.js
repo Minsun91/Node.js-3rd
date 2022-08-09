@@ -1,4 +1,5 @@
 const auth = require("../middlewares/auth-middleware");
+
 const UserRepository = require("../repositories/users.repository");
 
 class UserService {
