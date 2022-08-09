@@ -11,13 +11,16 @@ module.exports = {
       title: {
         type: Sequelize.STRING
       },
-      nickname: {
-        type: Sequelize.STRING
-      },
       content: {
         type: Sequelize.STRING
       },
+      nickname: {
+        type: Sequelize.STRING
+      },
       like: {
+        type: Sequelize.INTEGER
+      },
+      userId: {
         type: Sequelize.INTEGER
       },
       createdAt: {
