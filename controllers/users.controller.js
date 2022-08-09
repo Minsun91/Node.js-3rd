@@ -22,7 +22,7 @@ class UsersController {
             return;
         }
         //회원가입 부합테스트
-        const nicknameRegExp = /^[a-zA-z0-9]{3,}$/; // 닉네임이 3자리이상 영문대소문자,숫자로 입력하게.
+        const nicknameRegExp = /^[a-zA-z0-9]{3,}$/;
         if (!nicknameRegExp.test(id) || pw.search(id) > -1) {
             res.status(400).send({
                 errorMessage:
@@ -57,26 +57,52 @@ class UsersController {
         res.status(201).json({ Message: "로그아웃을 했습니다." });
     };
 
+    //edit
+    updateUser = async (req, res, next) => {
+        const { cookie } = req.headers;
+        const { userId } = res.locals;
+        const { nickname, pw } = req.body;
+
+        if (!cookie) {
+            res.status(400).send({
+                errorMessage: "로그인 후 이용하세요 ",
+            });
+            return;
+        }
+
+        const updateUser = await this.userService.updateUser(
+            userId,
+            nickname,
+            pw
+        );
+        console.log("컨트롤러", userId, nickname, pw);
+        res.status(200).json({ data: updateUser });
+    };
+
     //delete 인자값을 넘겨줌
     deleteUser = async (req, res, next) => {
-        // const { cookie } = req.headers;
-        // const { userId } = res.locals;
+        const { cookie } = req.headers;
+        const { userId } = res.locals;
         const { deletemessage } = req.body;
 
-        // console.log("탈퇴", userId);
+        if (!cookie) {
+            res.status(400).send({
+                errorMessage: "로그인 후 이용하세요 ",
+            });
+            return;
+        }
 
-        if (deletemessage !== "회원 탈퇴하겠습니다.") {
-            let userId = "4";
+        console.log("탈퇴", userId);
+
+        if (deletemessage !== "회원 탈퇴하겠습니다." && deletemessage == "") {
             res.status(400).send({
                 Message: "메세지를 정확히 입력해주세요. ",
             });
         } else {
-            const deleteUserData = await this.userService.deleteUser(
-                4
-                // {userId,}
-            );
+            const deleteUserData = await this.userService.deleteUser({
+                userId,
+            });
             res.status(201).send({
-                // Message: `${userId}번 회원 탈퇴되었습니다.`,
                 Message: "회원 탈퇴되었습니다.",
             });
         }
