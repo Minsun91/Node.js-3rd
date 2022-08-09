@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const authMiddleware = require("../middlewares/auth-middleware");
 
 const PostsController = require("../controllers/posts.controller");
 const postsController = new PostsController();
+
 
 // 게시물 조회
 router.get("/", postsController.getAllPosts /* ex) .getPosts */);
@@ -14,9 +16,9 @@ router.get("/:postId", postsController.getOnePost);
 router.post("/", postsController.createPost);
 
 // 게시물 수정
-router.patch("/:postId", postsController.updatePost);
+router.patch("/:postId", authMiddleware,postsController.updatePost);
 
 // 게시물 삭제
-router.delete("/:postId", postsController.deletePost);
+router.delete("/:postId", authMiddleware,postsController.deletePost);
 
 module.exports = router;

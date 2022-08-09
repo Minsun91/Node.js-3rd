@@ -18,6 +18,7 @@ module.exports = (req, res, next) => {
 
         res.locals.userId = tokenvoll.userId;
         res.locals.nickname = tokenvoll.nickname;
+        console.log()
         next();
     } catch (error) {
         res.status(401).send({

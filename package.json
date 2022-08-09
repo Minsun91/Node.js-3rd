@@ -25,10 +25,12 @@
   },
   "devDependencies": {
 
+
     "cli": "^1.0.1",
     "sequelize": "^6.21.3"
 
     
+
 
 
   }

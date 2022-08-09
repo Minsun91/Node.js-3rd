@@ -1,15 +1,8 @@
 const { post } = require("../models");
-const { User } = require("../models")
+
 class PostRepository {
   findAllPost = async () => {
-    const test = await User.findAll({
-      include: [{
-        model: post,
-      }],
-    where:{userId:15}
-    })
-    console.log(test)
-    console.log(test[0].posts)
+    
     // ORM인 Sequelize에서 Posts 모델의 findAll 메소드를 사용해 데이터를 요청합니다.
     const posts = await post.findAll();
 
@@ -41,7 +34,7 @@ class PostRepository {
   };
 
   updatePost = async (postId, title, content) => {
-    const updatePostData = await Posts.update(
+    const updatePostData = await post.update(
       {
         //postId로 게시물을 찾아 수정해주는 기능
         title,
@@ -56,7 +49,7 @@ class PostRepository {
   };
 
   deletePost = async (postId) => {
-    await Posts.destroy({
+    await post.destroy({
       where: { postId },
     });
   };

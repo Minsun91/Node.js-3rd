@@ -1,4 +1,5 @@
 const PostService = require("../services/posts.service");
+const requireLogin = require("../middlewares/auth-middleware");
 
 class PostsController {
   postService = new PostService();

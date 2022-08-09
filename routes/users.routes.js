@@ -1,6 +1,5 @@
 const express = require("express");
 const auth = require("../middlewares/auth-middleware");
-
 const router = express.Router();
 
 const UsersController = require("../controllers/users.controller");
@@ -17,7 +16,7 @@ router.post("/signin", usersController.signinUser);
 router.get("/logout", usersController.logoutUser);
 
 // 유저 수정
-router.patch("/edit/:userId", usersController.updateUser);
+// router.patch("/edit/:userId", usersController.updateUser);
 
 // 회원 탈퇴
 router.delete("/delete/:userId", usersController.deleteUser);
