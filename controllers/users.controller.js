@@ -50,29 +50,34 @@ class UsersController {
 
     //edit
     updateUser = async (req, res, next) => {
-        const { userId } = res.locals;
+        // const { userId } = res.locals;
         const { nickname, pw } = req.body;
-        const updateUser = await this.userService.updateUser(nickname, pw);
+        const updateUser = await this.userService.updateUser(4, nickname, pw);
         res.status(200).json({ data: updateUser });
     };
 
     //delete 인자값을 넘겨줌
     deleteUser = async (req, res, next) => {
-        const { cookie } = req.headers;
-        const { userId } = res.locals;
+        // const { cookie } = req.headers;
+        // const { userId } = res.locals;
         const { deletemessage } = req.body;
 
-        console.log("탈퇴", userId);
+        // console.log("탈퇴", userId);
 
-        if (deletemessage !== "회원 탈퇴하겠습니다") {
+        if (deletemessage !== "회원 탈퇴하겠습니다.") {
+            let userId = "4";
             res.status(400).send({
                 Message: "메세지를 정확히 입력해주세요. ",
             });
         } else {
-            const deleteUserData = await this.userService.deleteUser({
-                userId,
+            const deleteUserData = await this.userService.deleteUser(
+                4
+                // {userId,}
+            );
+            res.status(201).send({
+                // Message: `${userId}번 회원 탈퇴되었습니다.`,
+                Message: "회원 탈퇴되었습니다.",
             });
-            res.status(201).send({ Message: "회원 탈퇴되었습니다." });
         }
     };
 }

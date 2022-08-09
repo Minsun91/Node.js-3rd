@@ -32,8 +32,9 @@ class UserService {
     logoutUser = async (userId) => {};
 
     //유저 수정
-    updateUser = async (nickname, pw) => {
+    updateUser = async (userId, nickname, pw) => {
         const updateUserData = await this.userRepository.updateUser(
+            4, //userId
             nickname,
             pw
         );

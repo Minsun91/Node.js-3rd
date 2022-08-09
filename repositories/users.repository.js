@@ -18,13 +18,12 @@ class UserRepository {
         }
     };
 
-    updateUser = async (nickname, pw) => {
+    updateUser = async (userId, nickname, pw) => {
+        // const userId = 4;
         const updateUserData = await User.update(
             { nickname, pw },
-            { where: { User } }
+            { where: { userId } }
         );
-        // console.log(nickname, pw);
-
         return updateUserData;
     };
 
