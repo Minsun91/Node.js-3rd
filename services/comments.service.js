@@ -78,6 +78,9 @@ class CommentService {
 
     const verifyCommentId = await this.commentVerify.verifyCommentId(commentId);
 
+    const verifyConfrimUserNickname =
+      await this.commentVerify.verifyConfrimUserNickname(userId, commentId);
+
     const verifyConfirmPw = await this.commentVerify.verifyConfirmPw(
       userId,
       pw
@@ -89,6 +92,10 @@ class CommentService {
 
     if (!verifyCommentId) {
       return [{ status: 400 }, { msg: "없는 댓글입니다." }];
+    }
+
+    if (!verifyConfrimUserNickname) {
+      return [{ status: 400 }, { msg: "본인 댓글이 아닙니다." }];
     }
 
     if (!verifyConfirmPw) {

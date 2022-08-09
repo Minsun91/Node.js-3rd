@@ -11,7 +11,6 @@ module.exports = (req, res, next) => {
   }
   try {
     const tokenvoll = jwt.verify(tokenValue, "MS-secret-key");
-    console.log(tokenvoll);
     res.locals.userId = tokenvoll.userId;
     res.locals.nickname = tokenvoll.nickname;
     next();

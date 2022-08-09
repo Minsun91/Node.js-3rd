@@ -29,7 +29,6 @@ class UserRepository {
 
   deleteUser = async (userId) => {
     const deleteUserData = await User.destroy({ where: { userId } });
-    console.log("repo", userId);
     return deleteUserData;
   };
 }
