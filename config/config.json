@@ -1,9 +1,9 @@
 {
     "development": {
         "username": "root",
-        "password": "",
+        "password": "Asd12345",
         "database": "AzzulDB",
-        "host": "",
+        "host": "hanghae99-team2.ckwo0fkfwio9.ap-northeast-2.rds.amazonaws.com",
         "dialect": "mysql"
     },
     "test": {
