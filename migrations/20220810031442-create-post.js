@@ -17,6 +17,7 @@ module.exports = {
             nickname: {
                 type: Sequelize.STRING,
             },
+            pw: { type: Sequelize.STRING },
             like: {
                 type: Sequelize.INTEGER,
             },

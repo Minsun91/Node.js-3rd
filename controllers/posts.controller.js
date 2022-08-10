@@ -29,13 +29,13 @@ class PostsController {
     };
     //8월 8일 완료
     createPost = async (req, res, next) => {
-        const { password, title, content } = req.body;
+        const { pw, title, content } = req.body;
         const { nickname, userId } = res.locals;
 
         // 서비스 계층에 구현된 createPost 로직을 실행합니다.
         const createPostData = await this.postService.createPost(
             nickname,
-            password,
+            pw,
             title,
             content,
             userId
@@ -46,12 +46,12 @@ class PostsController {
     //8월 8일 완료
     updatePost = async (req, res, next) => {
         const { postId } = req.params;
-        const { content, password } = req.body;
+        const { content, pw } = req.body;
 
         const updatePostData = await this.postService.updatePost(
             Number(postId),
             content,
-            password
+            pw
         );
 
         res.status(updatePostData.status).json({ data: updatePostData });

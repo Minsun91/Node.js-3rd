@@ -8,18 +8,18 @@ class PostService {
     findAllPost = async () => {
         const allPost = await this.postRepository.findAllPost();
 
-        allPost.sort((a, b) => {
-            return b.createdAt - a.createdAt;
-        });
-
-        const Posts = allPost.map((post) => {
+        const Posts = allPost.posts.map((post, idx) => {
             return {
                 postId: post.postId,
                 nickname: post.nickname,
                 title: post.title,
                 createdAt: post.createdAt,
-                like: post.like,
+                like: allPost.like[idx],
             };
+        });
+
+        Posts.sort((a, b) => {
+            return b.createdAt - a.createdAt;
         });
 
         return {
@@ -46,11 +46,11 @@ class PostService {
     };
 
     //8월 8일 완료
-    createPost = async (nickname, password, title, content, userId) => {
+    createPost = async (nickname, pw, title, content, userId) => {
         // 저장소(Repository)에게 데이터를 요청합니다.
         await this.postRepository.createPost(
             nickname,
-            password,
+            pw,
             title,
             content,
             userId
@@ -63,8 +63,8 @@ class PostService {
         };
     };
 
-    updatePost = async (postId, content, password) => {
-        if (!this.postRepository.checkPw(postId, password)) {
+    updatePost = async (postId, content, pw) => {
+        if (!this.postRepository.checkPw(postId, pw)) {
             //입력한 비밀번호가 다른 경우
             return {
                 status: 400,
@@ -80,7 +80,7 @@ class PostService {
     };
 
     deletePost = async (postId, pw) => {
-        if (!this.postRepository.checkPw(postId, pw)) {
+        if (!(await this.postRepository.checkPw(postId, pw))) {
             return {
                 status: 400,
                 msg: "입력한 비밀번호가 다릅니다.",

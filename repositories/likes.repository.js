@@ -1,5 +1,4 @@
-const { Like } = require("../models");
-const { post } = require("../models");
+const { Like, post } = require("../models");
 
 class LikeRepository {
     checkPost = async (postId) => {
@@ -12,15 +11,37 @@ class LikeRepository {
             return true;
         }
     };
-
-    checkExistLikeAndDelete = async (postId, userId) => {
+    postLikeUpDown = async (postId, likeNum) => {
         try {
+            const test = await post.findOne({
+                where: { postId },
+            });
+
+            await post.update(
+                {
+                    like: test.like + likeNum,
+                },
+                {
+                    where: { postId },
+                }
+            );
+        } catch (err) {
+            return;
+        }
+    };
+    checkExistLikeAndDelete = async (postId, userId) => {
+        const checkExistLikeAndDeleteData = await Like.findOne({
+            where: { postId: Number(postId), userId },
+        });
+
+        if (!checkExistLikeAndDeleteData === true) {
+            return false;
+        } else {
+            this.postLikeUpDown(postId, -1);
             await Like.destroy({
-                where: { postId, userId },
+                where: { postId: Number(postId), userId },
             });
             return true;
-        } catch (err) {
-            return false;
         }
     };
 
@@ -29,6 +50,7 @@ class LikeRepository {
             postId,
             userId,
         });
+        this.postLikeUpDown(postId, +1);
         return;
     };
 
@@ -38,7 +60,6 @@ class LikeRepository {
 
         // 내가 좋아요 한 값 찾기
         const myLikeData = await Like.findAll({ where: { userId } });
-
         // 내가 종아요 한 게시물 좋아요 횟수 찾기
         for (let i = 0; i < myLikeData.length; i++) {
             const likeArray = await Like.findAll({
