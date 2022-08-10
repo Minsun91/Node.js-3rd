@@ -10,7 +10,11 @@ class LikesService {
                 msg: "해당되는 포스트가 없습니다.",
             };
         }
-        if (this.likeRepository.checkExistLikeAndDelete) {
+        const exist = await this.likeRepository.checkExistLikeAndDelete(
+            postId,
+            userId
+        );
+        if (exist) {
             return {
                 status: 200,
                 msg: `${postId}번 게시물 좋아요 삭제!`,
@@ -27,7 +31,6 @@ class LikesService {
 
         // 내가 좋아요 한 값 찾기, 내가 종아요 한 게시물 좋아요 횟수 찾기
         const { likes, posts } = myLike;
-
         const result = posts.map((curV, curI) => {
             return {
                 postId: curV.postId,

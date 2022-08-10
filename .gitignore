@@ -2,5 +2,8 @@
 node_modules/
 config
 
+## env 무시
+.env
+
 ## 파일 무시
 package-lock.json

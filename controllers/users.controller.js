@@ -7,7 +7,6 @@ class UsersController {
     createUser = async (req, res, next) => {
         const { id, pw, confirmpw, nickname } = req.body;
         const { cookie } = req.headers;
-
         if (cookie) {
             res.status(400).send({
                 errorMessage: "이미 로그인 되어 있습니다. ",

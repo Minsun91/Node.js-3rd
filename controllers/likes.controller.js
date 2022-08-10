@@ -6,7 +6,9 @@ class LikesController {
     postLike = async (req, res, next) => {
         const { postId } = req.params;
         const { userId } = res.locals;
-        const postLikeData = this.likeService(postId, userId);
+
+        const postLikeData = await this.likeService.postLike(postId, userId);
+
         res.status(postLikeData.status).json(postLikeData.msg);
     };
 

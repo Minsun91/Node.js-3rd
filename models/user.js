@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
          * This method is not a part of Sequelize lifecycle.
          * The `models/index` file will call this method automatically.
          */
-        static associate(models) {
+        static associate(db) {
             // define association here
         }
     }
@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
             userId: { primaryKey: true, type: DataTypes.INTEGER },
             id: DataTypes.STRING,
             pw: DataTypes.STRING,
-            nickname: DataTypes.STRING,
+            nickname: { type: DataTypes.STRING, unique: true },
         },
         {
             sequelize,
