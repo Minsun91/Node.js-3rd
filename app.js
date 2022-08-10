@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
+const cors = require("cors");
+
 const socketIo = require("socket.io");
 const Http = require("http");
 const http = Http.Server(app);
@@ -12,6 +14,7 @@ const router = require("./routes");
 
 const authMiddleware = require("./middlewares/auth-middleware");
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
