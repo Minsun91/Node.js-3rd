@@ -1,6 +1,5 @@
 ## 폴더무시
 node_modules/
-config
 
 ## env 무시
 .env
