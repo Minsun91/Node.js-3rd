@@ -1,5 +1,6 @@
 const PostRepository = require("../repositories/posts.repository");
 
+
 class PostService {
     postRepository = new PostRepository();
 
@@ -7,19 +8,19 @@ class PostService {
     //모든 포스트를 가져와 반환
     findAllPost = async () => {
         const allPost = await this.postRepository.findAllPost();
-
-        allPost.sort((a, b) => {
-            return b.createdAt - a.createdAt;
-        });
-
-        const Posts = allPost.map((post) => {
+        
+        const Posts = allPost.posts.map((post,idx) => {
             return {
                 postId: post.postId,
                 nickname: post.nickname,
                 title: post.title,
                 createdAt: post.createdAt,
-                like: post.like,
+                like: allPost.like[idx],
             };
+        });
+        
+        Posts.sort((a, b) => {
+            return b.createdAt - a.createdAt;
         });
 
         return {

@@ -6,11 +6,18 @@ class LikesController {
     postLike = async (req, res, next) => {
         const { postId } = req.params;
         const { userId } = res.locals;
+
         const postLikeData = await this.likeService.postLike(postId, userId);
+
         res.status(postLikeData.status).json(postLikeData.msg);
     };
 
-    // 함수 작성
+    getMyLike = async (req, res) => {
+        const { userId } = res.locals;
+        const getMylike = await this.likeService.getMyLike(userId);
+
+        res.status(200).json(getMylike);
+    };
 }
 
 module.exports = LikesController;

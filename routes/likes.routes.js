@@ -8,6 +8,6 @@ const likesController = new LikesController();
 router.patch("/:postId/like",authMiddleware, likesController.postLike);
 
 // 자기가 좋아요 한 게시물 조회
-// router.get("/my", likesController);
+router.get("/my",authMiddleware, likesController.getMyLike);
 
 module.exports = router;
