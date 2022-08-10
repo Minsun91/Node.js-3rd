@@ -2,6 +2,7 @@ const LikeRepository = require("../repositories/likes.repository");
 
 class LikesService {
     likeRepository = new LikeRepository();
+    
 
     postLike = async (postId, userId) => {
         if (!this.likeRepository.checkPost(postId)) {
@@ -10,7 +11,8 @@ class LikesService {
                 msg: "해당되는 포스트가 없습니다.",
             };
         }
-        if (this.likeRepository.checkExistLikeAndDelete) {
+        const exist = await this.likeRepository.checkExistLikeAndDelete(postId,userId)
+        if (exist ) {
             return {
                 status: 200,
                 msg: `${postId}번 게시물 좋아요 삭제!`,

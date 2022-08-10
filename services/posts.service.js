@@ -46,11 +46,11 @@ class PostService {
     };
 
     //8월 8일 완료
-    createPost = async (nickname, password, title, content, userId) => {
+    createPost = async (nickname, pw, title, content, userId) => {
         // 저장소(Repository)에게 데이터를 요청합니다.
         await this.postRepository.createPost(
             nickname,
-            password,
+            pw,
             title,
             content,
             userId
@@ -63,8 +63,8 @@ class PostService {
         };
     };
 
-    updatePost = async (postId, content, password) => {
-        if (!this.postRepository.checkPw(postId, password)) {
+    updatePost = async (postId, content, pw) => {
+        if (!this.postRepository.checkPw(postId, pw)) {
             //입력한 비밀번호가 다른 경우
             return {
                 status: 400,
