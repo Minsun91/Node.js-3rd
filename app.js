@@ -53,12 +53,12 @@ io.on("connection", (socket) => {
 
     // 메시지 수신
     socket.on("reply", (data) => {
-        post(data, socket.id.substring(0, 3));
+        post(data);
     });
 
     // 접속해제
     socket.on("disconnect", () => {
-        console.log("클라이언트 접속 해제", socket.id);
+        console.log("Bye Bye");
         clearInterval(socket.interval);
     });
 });
