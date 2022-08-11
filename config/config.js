@@ -18,10 +18,10 @@ const production = {
 };
 
 const test = {
-    username: "root",
-    password: null,
+    username: env.DB_USER,
+    password: env.DB_PASS,
     database: "database_test",
-    host: "127.0.0.1",
+    host: env.DB_HOST,
     dialect: "mysql",
 };
 
